@@ -143,10 +143,17 @@ const departments = [
     }
 ];
 
-// TAB OF SHAME LIST — EMPTY FOR NOW
+// WALL OF SHAME — EMPTY FOR NOW
 const shameList = [
     // Example format:
-    // { name: "User#0001", reason: "Misused police tools", date: "2026-09-12" }
+    // {
+    //     name: "User#0001",
+    //     rank: "Officer",
+    //     id: "123456789012345678",
+    //     avatar: "https://cdn.discordapp.com/attachments/CHANNELID/MESSAGEID/image.png",
+    //     reason: "Misused police equipment",
+    //     date: "2026-09-12"
+    // }
 ];
 
 /* =========================
@@ -245,7 +252,7 @@ function loadHomeStatus() {
 }
 
 /* =========================
-   LOAD TAB OF SHAME
+   LOAD WALL OF SHAME
    ========================= */
 
 function loadShame() {
@@ -277,10 +284,31 @@ function loadShame() {
         header.appendChild(name);
         header.appendChild(date);
 
-        const reason = document.createElement('p');
-        reason.innerHTML = `<strong>Reason:</strong> ${entry.reason}`;
+        if (entry.avatar) {
+            const avatar = document.createElement('img');
+            avatar.src = entry.avatar;
+            avatar.style.width = "80px";
+            avatar.style.height = "80px";
+            avatar.style.borderRadius = "50%";
+            avatar.style.marginBottom = "15px";
+            avatar.style.border = "2px solid rgba(0,150,255,0.4)";
+            card.appendChild(avatar);
+        }
 
-        card.appendChild(header);
+        if (entry.rank) {
+            const rank = document.createElement('p');
+            rank.innerHTML = `<strong>Rank:</strong> ${entry.rank}`;
+            card.appendChild(rank);
+        }
+
+        if (entry.id) {
+            const id = document.createElement('p');
+            id.innerHTML = `<strong>ID:</strong> ${entry.id}`;
+            card.appendChild(id);
+        }
+
+        const reason = document.createElement('p');
+        reason.innerHTML = `<strong>Violation:</strong> ${entry.reason}`;
         card.appendChild(reason);
 
         container.appendChild(card);
@@ -363,6 +391,11 @@ function loadShame() {
 <!-- TAB OF SHAME -->
 <div class="page" id="shame">
     <h2>Tab of Shame</h2>
+    <p style="color:#9aa3d9; margin-bottom:20px;">
+        This section displays confirmed violations of PD Hub rules. 
+        Users listed here have broken protocol, misused equipment, or violated department standards.
+        Entries include rank, ID, avatar, and the reason for disciplinary action.
+    </p>
     <div id="shameContainer"></div>
 </div>
 
