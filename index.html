@@ -10,14 +10,14 @@
     body {
         margin:0;
         font-family: "Segoe UI", Arial, sans-serif;
-        background:#050814;
-        color:#e5e9ff;
+        background:#0a0d16; /* deep tactical navy */
+        color:#cdd3ff; /* soft police blue */
         transition:0.3s;
     }
 
     /* ===== NAVIGATION ===== */
     nav {
-        background:linear-gradient(90deg, #4b0082, #7b2cff, #ff3366);
+        background:linear-gradient(90deg, #001f3f, #003b7a, #4b0082);
         padding:15px;
         display:flex;
         justify-content:center;
@@ -26,18 +26,21 @@
         top:0;
         z-index:10;
         box-shadow:0 3px 15px rgba(0,0,0,0.6);
+        border-bottom:2px solid rgba(0,150,255,0.3);
     }
     nav a {
-        color:#fdf2ff;
+        color:#dfe6ff;
         text-decoration:none;
         font-size:18px;
         font-weight:600;
         cursor:pointer;
         transition:0.3s;
+        letter-spacing:0.5px;
     }
     nav a:hover {
         opacity:0.85;
         transform:translateY(-2px);
+        color:#7ab8ff;
     }
 
     /* ===== PAGE SYSTEM ===== */
@@ -54,29 +57,32 @@
     h1 {
         font-size:48px;
         margin-bottom:10px;
-        background:linear-gradient(120deg, #7b2cff, #00c6ff, #ff3366);
+        background:linear-gradient(120deg, #007bff, #4b0082, #ff003c);
         -webkit-background-clip:text;
         color:transparent;
+        letter-spacing:1px;
     }
     h2 {
         font-size:36px;
         margin-bottom:20px;
-        color:#c3a6ff;
+        color:#7ab8ff;
+        letter-spacing:0.5px;
     }
 
     /* ===== CARDS ===== */
     .card {
-        background:radial-gradient(circle at top left, #1b1030, #090b1a);
+        background:linear-gradient(135deg, #0f1324, #1a1f33);
         padding:30px;
         border-radius:16px;
         margin-bottom:30px;
         box-shadow:0 8px 24px rgba(0,0,0,0.7);
-        border:1px solid rgba(123,44,255,0.4);
+        border:1px solid rgba(0,150,255,0.25);
         transition:0.3s;
     }
     .card:hover {
         transform:translateY(-3px);
         box-shadow:0 12px 32px rgba(0,0,0,0.85);
+        border-color:rgba(0,150,255,0.45);
     }
 
     /* ===== DEPARTMENT GRID ===== */
@@ -86,7 +92,7 @@
         gap:25px;
     }
     .dept-item {
-        background:linear-gradient(135deg, #7b2cff, #00c6ff, #ff3366);
+        background:linear-gradient(135deg, #003b7a, #4b0082, #ff003c);
         padding:25px;
         border-radius:14px;
         text-align:center;
@@ -97,22 +103,26 @@
         transition:0.3s;
         box-shadow:0 8px 24px rgba(0,0,0,0.8);
         border:1px solid rgba(255,255,255,0.15);
+        letter-spacing:0.5px;
     }
     .dept-item:hover {
         transform:translateY(-5px) scale(1.02);
         box-shadow:0 12px 32px rgba(0,0,0,0.9);
         opacity:0.9;
+        border-color:#7ab8ff;
     }
 
     /* ===== FOOTER ===== */
     footer {
         text-align:center;
         padding:25px;
-        margin-top:40px;
-        background:linear-gradient(90deg, #4b0082, #7b2cff, #ff3366);
-        color:#fdf2ff;
+        margin-top:60px;
+        background:linear-gradient(90deg, #001f3f, #003b7a, #4b0082);
+        color:#dfe6ff;
         font-size:16px;
         box-shadow:0 -3px 15px rgba(0,0,0,0.7);
+        border-top:2px solid rgba(0,150,255,0.3);
+        letter-spacing:0.5px;
     }
 </style>
 
@@ -214,7 +224,7 @@ function loadDepartments() {
 </div>
 
 <footer>
-    PD Hub © 2026 — All Rights Reserved
+    PD Hub • 2026 — All Rights Reserved
 </footer>
 
 </body>
