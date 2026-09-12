@@ -6,16 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-    /* ===== GLOBAL ===== */
     body {
         margin:0;
         font-family: "Segoe UI", Arial, sans-serif;
-        background:#0a0d16; /* deep tactical navy */
-        color:#cdd3ff; /* soft police blue */
-        transition:0.3s;
+        background:#0a0d16;
+        color:#cdd3ff;
     }
 
-    /* ===== NAVIGATION ===== */
     nav {
         background:linear-gradient(90deg, #001f3f, #003b7a, #4b0082);
         padding:15px;
@@ -35,7 +32,6 @@
         font-weight:600;
         cursor:pointer;
         transition:0.3s;
-        letter-spacing:0.5px;
     }
     nav a:hover {
         opacity:0.85;
@@ -43,7 +39,6 @@
         color:#7ab8ff;
     }
 
-    /* ===== PAGE SYSTEM ===== */
     .page {
         display:none;
         animation:fadeIn 0.4s ease;
@@ -53,66 +48,68 @@
     }
     @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
 
-    /* ===== HEADERS ===== */
     h1 {
         font-size:48px;
         margin-bottom:10px;
         background:linear-gradient(120deg, #007bff, #4b0082, #ff003c);
         -webkit-background-clip:text;
         color:transparent;
-        letter-spacing:1px;
     }
     h2 {
         font-size:36px;
         margin-bottom:20px;
         color:#7ab8ff;
-        letter-spacing:0.5px;
     }
 
-    /* ===== CARDS ===== */
-    .card {
+    .dept-card {
         background:linear-gradient(135deg, #0f1324, #1a1f33);
         padding:30px;
         border-radius:16px;
         margin-bottom:30px;
         box-shadow:0 8px 24px rgba(0,0,0,0.7);
         border:1px solid rgba(0,150,255,0.25);
-        transition:0.3s;
-    }
-    .card:hover {
-        transform:translateY(-3px);
-        box-shadow:0 12px 32px rgba(0,0,0,0.85);
-        border-color:rgba(0,150,255,0.45);
     }
 
-    /* ===== DEPARTMENT GRID ===== */
-    .dept-grid {
-        display:grid;
-        grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
-        gap:25px;
+    .dept-header {
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:15px;
     }
-    .dept-item {
+
+    .status-online {
+        color:#4cff4c;
+        font-weight:700;
+    }
+    .status-offline {
+        color:#ff4c4c;
+        font-weight:700;
+    }
+
+    .dept-button {
+        margin-top:20px;
+        padding:12px 20px;
         background:linear-gradient(135deg, #003b7a, #4b0082, #ff003c);
-        padding:25px;
-        border-radius:14px;
-        text-align:center;
-        font-size:22px;
-        font-weight:600;
+        border:none;
+        border-radius:10px;
         color:#fdf2ff;
+        font-size:18px;
+        font-weight:600;
         cursor:pointer;
         transition:0.3s;
-        box-shadow:0 8px 24px rgba(0,0,0,0.8);
-        border:1px solid rgba(255,255,255,0.15);
-        letter-spacing:0.5px;
+        width:100%;
     }
-    .dept-item:hover {
-        transform:translateY(-5px) scale(1.02);
-        box-shadow:0 12px 32px rgba(0,0,0,0.9);
+    .dept-button:hover {
+        transform:translateY(-3px);
         opacity:0.9;
-        border-color:#7ab8ff;
+    }
+    .dept-button:disabled {
+        background:#333;
+        color:#777;
+        cursor:not-allowed;
+        opacity:0.5;
     }
 
-    /* ===== FOOTER ===== */
     footer {
         text-align:center;
         padding:25px;
@@ -120,24 +117,31 @@
         background:linear-gradient(90deg, #001f3f, #003b7a, #4b0082);
         color:#dfe6ff;
         font-size:16px;
-        box-shadow:0 -3px 15px rgba(0,0,0,0.7);
         border-top:2px solid rgba(0,150,255,0.3);
-        letter-spacing:0.5px;
     }
 </style>
 
 <script>
 /* =========================
-   CONFIG SECTION (EDIT THIS)
+   CONFIG SECTION — EDIT HERE
    ========================= */
 
 const departments = [
-    { name: "State Police", link: "https://example.com/state-police" },
-    { name: "Security Operators", link: "https://example.com/security-operators" }
+    {
+        name: "Highway Police",
+        description: "Responsible for highway patrol, traffic enforcement, and roadway safety operations.",
+        link: "https://example.com/highway-police",
+        online: true,
+        operational: true
+    },
+    {
+        name: "Security Team",
+        description: "You operate security duties only. You use police tools but you are NOT a police officer. Misuse of police equipment results in removal.",
+        link: "https://example.com/security-team",
+        online: false,
+        operational: true
+    }
 ];
-
-// Auto-sort alphabetically
-departments.sort((a, b) => a.name.localeCompare(b.name));
 
 /* =========================
    PAGE SYSTEM
@@ -162,11 +166,38 @@ function loadDepartments() {
     container.innerHTML = "";
 
     departments.forEach(dept => {
-        const div = document.createElement('div');
-        div.className = "dept-item";
-        div.innerText = dept.name;
-        div.onclick = () => window.open(dept.link, "_blank");
-        container.appendChild(div);
+        const card = document.createElement('div');
+        card.className = "dept-card";
+
+        const header = document.createElement('div');
+        header.className = "dept-header";
+
+        const name = document.createElement('h3');
+        name.innerText = dept.name;
+
+        const status = document.createElement('span');
+        status.innerText = dept.online ? "ONLINE" : "OFFLINE";
+        status.className = dept.online ? "status-online" : "status-offline";
+
+        header.appendChild(name);
+        header.appendChild(status);
+
+        const desc = document.createElement('p');
+        desc.innerText = dept.description;
+
+        const button = document.createElement('button');
+        button.className = "dept-button";
+        button.innerText = dept.online ? "Open Application" : "Department Offline";
+        button.disabled = !dept.online;
+        if (dept.online) {
+            button.onclick = () => window.open(dept.link, "_blank");
+        }
+
+        card.appendChild(header);
+        card.appendChild(desc);
+        card.appendChild(button);
+
+        container.appendChild(card);
     });
 }
 </script>
@@ -176,49 +207,40 @@ function loadDepartments() {
 
 <nav>
     <a onclick="showPage('home')">Home</a>
-    <a onclick="showPage('about')">About</a>
     <a onclick="showPage('departments')">Departments</a>
+    <a onclick="showPage('rules')">Rules</a>
     <a onclick="showPage('chain')">Chain of Command</a>
-    <a onclick="showPage('sops')">SOPs</a>
 </nav>
 
 <!-- HOME -->
 <div class="page" id="home">
     <h1>PD Hub — Master Department</h1>
-    <div class="card">
-        <p>Welcome to the PD Hub. This is the central command system for all law enforcement divisions within the jurisdiction. All departments operate under PD Hub oversight and follow unified command protocols.</p>
-    </div>
-</div>
-
-<!-- ABOUT -->
-<div class="page" id="about">
-    <h2>About the PD Hub</h2>
-    <div class="card">
-        <p>The PD Hub manages operations, supervises departments, and ensures consistent standards across all divisions. Our mission is to maintain safety, structure, and efficiency throughout the entire system.</p>
+    <div class="dept-card">
+        <p>Welcome to the PD Hub. This is the central command system for all law enforcement divisions within the jurisdiction.</p>
     </div>
 </div>
 
 <!-- DEPARTMENTS -->
 <div class="page" id="departments">
     <h2>Departments</h2>
-    <div class="dept-grid" id="deptContainer"></div>
+    <div id="deptContainer"></div>
+</div>
+
+<!-- RULES -->
+<div class="page" id="rules">
+    <h2>Rules</h2>
+    <div class="dept-card">
+        <p>Upload your rules here or paste them into this section.</p>
+    </div>
 </div>
 
 <!-- CHAIN OF COMMAND -->
 <div class="page" id="chain">
     <h2>Chain of Command</h2>
-    <div class="card">
+    <div class="dept-card">
         <p><strong>PD Hub Director:</strong> CodeBullet</p>
-        <p><strong>Deputy Director:</strong> Chew</p>
+        <p><strong>Deputy Director:</strong> TBD</p>
         <p><strong>Operations Chief:</strong> TBD</p>
-    </div>
-</div>
-
-<!-- SOPs -->
-<div class="page" id="sops">
-    <h2>Standard Operating Procedures</h2>
-    <div class="card">
-        <p><a href="#">View SOP Document</a></p>
     </div>
 </div>
 
