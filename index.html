@@ -10,14 +10,14 @@
     body {
         margin:0;
         font-family: "Segoe UI", Arial, sans-serif;
-        background:#f4f6f9;
-        color:#222;
+        background:#050814;
+        color:#e5e9ff;
         transition:0.3s;
     }
 
     /* ===== NAVIGATION ===== */
     nav {
-        background:linear-gradient(90deg, #004aad, #0077ff);
+        background:linear-gradient(90deg, #4b0082, #7b2cff, #ff3366);
         padding:15px;
         display:flex;
         justify-content:center;
@@ -25,10 +25,10 @@
         position:sticky;
         top:0;
         z-index:10;
-        box-shadow:0 3px 10px rgba(0,0,0,0.2);
+        box-shadow:0 3px 15px rgba(0,0,0,0.6);
     }
     nav a {
-        color:white;
+        color:#fdf2ff;
         text-decoration:none;
         font-size:18px;
         font-weight:600;
@@ -36,7 +36,7 @@
         transition:0.3s;
     }
     nav a:hover {
-        opacity:0.8;
+        opacity:0.85;
         transform:translateY(-2px);
     }
 
@@ -54,28 +54,29 @@
     h1 {
         font-size:48px;
         margin-bottom:10px;
-        background:linear-gradient(90deg, #004aad, #00c6ff);
+        background:linear-gradient(120deg, #7b2cff, #00c6ff, #ff3366);
         -webkit-background-clip:text;
         color:transparent;
     }
     h2 {
         font-size:36px;
         margin-bottom:20px;
-        color:#004aad;
+        color:#c3a6ff;
     }
 
     /* ===== CARDS ===== */
     .card {
-        background:white;
+        background:radial-gradient(circle at top left, #1b1030, #090b1a);
         padding:30px;
         border-radius:16px;
         margin-bottom:30px;
-        box-shadow:0 4px 12px rgba(0,0,0,0.1);
+        box-shadow:0 8px 24px rgba(0,0,0,0.7);
+        border:1px solid rgba(123,44,255,0.4);
         transition:0.3s;
     }
     .card:hover {
         transform:translateY(-3px);
-        box-shadow:0 6px 16px rgba(0,0,0,0.15);
+        box-shadow:0 12px 32px rgba(0,0,0,0.85);
     }
 
     /* ===== DEPARTMENT GRID ===== */
@@ -85,20 +86,21 @@
         gap:25px;
     }
     .dept-item {
-        background:linear-gradient(135deg, #0077ff, #00c6ff);
+        background:linear-gradient(135deg, #7b2cff, #00c6ff, #ff3366);
         padding:25px;
         border-radius:14px;
         text-align:center;
         font-size:22px;
         font-weight:600;
-        color:white;
+        color:#fdf2ff;
         cursor:pointer;
         transition:0.3s;
-        box-shadow:0 4px 12px rgba(0,0,0,0.15);
+        box-shadow:0 8px 24px rgba(0,0,0,0.8);
+        border:1px solid rgba(255,255,255,0.15);
     }
     .dept-item:hover {
-        transform:translateY(-5px);
-        box-shadow:0 6px 18px rgba(0,0,0,0.2);
+        transform:translateY(-5px) scale(1.02);
+        box-shadow:0 12px 32px rgba(0,0,0,0.9);
         opacity:0.9;
     }
 
@@ -107,10 +109,10 @@
         text-align:center;
         padding:25px;
         margin-top:40px;
-        background:#004aad;
-        color:white;
+        background:linear-gradient(90deg, #4b0082, #7b2cff, #ff3366);
+        color:#fdf2ff;
         font-size:16px;
-        box-shadow:0 -3px 10px rgba(0,0,0,0.2);
+        box-shadow:0 -3px 15px rgba(0,0,0,0.7);
     }
 </style>
 
