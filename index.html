@@ -4,6 +4,164 @@
   <meta charset="UTF-8" />
   <title>PD Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- =========================
+       PD HUB CONFIG (EDIT HERE)
+       ========================= -->
+  <script>
+    // Basic hub info
+    const PD_CONFIG = {
+      serverName: "Liberty County RP",
+      hubVersion: "2.1",
+      hubTagline: "Central operations dashboard",
+      // Live updates (homepage shows latest 3, Updates page shows all)
+      updates: [
+        {
+          date: "2026-09-15",
+          title: "PD Hub v2.1 — Multi-page layout",
+          body: "Separated sections into their own views while keeping everything in a single file. Homepage now shows a clean overview.",
+          tags: ["UI", "Layout", "GitHub-ready"]
+        },
+        {
+          date: "2026-09-14",
+          title: "Rules section expanded",
+          body: "Global PD rules and department creation rules structured for easy reading and editing.",
+          tags: ["Rules", "Policy"]
+        },
+        {
+          date: "2026-09-13",
+          title: "Command & Departments overview",
+          body: "Command structure and department cards updated for quick reference.",
+          tags: ["Command", "Departments"]
+        }
+      ],
+
+      // WALL OF SHAME ENTRIES
+      // Add entries here when you actually have people to log.
+      // Leave this array empty if no one should be on the Wall of Shame.
+      wallOfShame: [
+        // Example format (REMOVE when you use real data):
+        // {
+        //   name: "UserExample#0001",
+        //   robloxId: "123456789",
+        //   reason: "Mass RDM, failure to follow PD protocol, repeated warnings ignored.",
+        //   action: "Permanent PD ban • Server ban recommended.",
+        //   loggedDate: "2026-09-15",
+        //   loggedBy: "Chief",
+        //   tag: "PERMA BAN"
+        // }
+      ],
+
+      // GLOBAL PD RULES
+      rules: [
+        {
+          index: "01",
+          title: "Follow chain of command",
+          body: "All PD members must respect rank and follow the chain of command. Disputes or concerns go up the chain, not into public chat or in-game arguments.",
+          tagline: "Command first • No public drama"
+        },
+        {
+          index: "02",
+          title: "Professional conduct on and off duty",
+          body: "You represent the department whenever you wear the uniform or use PD tags. No harassment, toxicity, or trolling—inside or outside the server.",
+          tagline: "Respect the badge"
+        },
+        {
+          index: "03",
+          title: "No abuse of powers",
+          body: "Using PD powers (tools, vehicles, permissions) for personal gain, trolling, or favoritism is an instant removal and may be logged on the Wall of Shame.",
+          tagline: "Zero tolerance • Abuse = out"
+        },
+        {
+          index: "04",
+          title: "Follow server rules and PD SOP",
+          body: "PD rules do not replace server rules—they stack. You must follow both the server rules and PD standard operating procedures at all times.",
+          tagline: "Server + PD rules together"
+        },
+        {
+          index: "05",
+          title: "Department creation & applications",
+          body: "If you are making an application to create a department, you must follow the same global PD rules as everyone else. You may create rules for your own department, but they cannot override or break global PD rules.",
+          tagline: "Department rules sit under PD rules"
+        },
+        {
+          index: "06",
+          title: "Maximum departments per person",
+          body: "Max department ownership is one per person unless special permission is granted by command. Do not expect exceptions unless clearly approved.",
+          tagline: "One department • Special permission only"
+        }
+      ],
+
+      // COMMAND STRUCTURE
+      command: [
+        {
+          rank: "Chief of Police",
+          name: "@ChiefTag",
+          responsibilities: "Overall PD leadership, final say on bans, promotions, and major policy changes.",
+          contact: "Discord DM • Ticket: \"PD — Chief Review\"",
+          tag: "Final authority"
+        },
+        {
+          rank: "Deputy Chief",
+          name: "@DeputyTag",
+          responsibilities: "Day-to-day operations, training oversight, and handling escalated issues from Captains.",
+          contact: "Ticket: \"PD — Operations\" • In-game whisper.",
+          tag: "Operations lead"
+        },
+        {
+          rank: "Internal Affairs",
+          name: "@IATag",
+          responsibilities: "Investigations, complaints, and Wall of Shame entries. Handles officer-vs-officer issues.",
+          contact: "Ticket: \"PD — IA Complaint\" • Anonymous form.",
+          tag: "Investigations"
+        }
+      ],
+
+      // DEPARTMENTS
+      departments: [
+        {
+          name: "Patrol Division",
+          status: "Active • Recruiting",
+          statusOnline: true,
+          description: "Primary street patrol, traffic stops, and first response to calls.",
+          contact: "Lead: @PatrolCaptain • Ticket: \"PD — Patrol Application\".",
+          slots: "24 / 32",
+          tag: "Core division"
+        },
+        {
+          name: "Traffic Enforcement",
+          status: "Active • Limited slots",
+          statusOnline: true,
+          description: "Focused on speed enforcement, collisions, and roadway safety operations.",
+          contact: "Lead: @TrafficLead • Ticket: \"PD — Traffic Application\".",
+          slots: "10 / 12",
+          tag: "Specialized"
+        },
+        {
+          name: "SWAT / Tactical",
+          status: "Active • Not recruiting",
+          statusOnline: false,
+          description: "High-risk operations, raids, and hostage situations. Invite-only, strict standards.",
+          contact: "Lead: @SWATCommander • Ticket: \"PD — SWAT Inquiry\" only.",
+          slots: "6 / 8",
+          tag: "High risk"
+        },
+        {
+          name: "Training Division",
+          status: "Active • Recruiting trainers",
+          statusOnline: true,
+          description: "Handles academy, ride-alongs, and refreshers for existing officers.",
+          contact: "Lead: @TrainingLead • Ticket: \"PD — Trainer Application\".",
+          slots: "5 / 10",
+          tag: "Support"
+        }
+      ]
+    };
+  </script>
+
+  <!-- =========================
+       STYLES
+       ========================= -->
   <style>
     :root {
       --bg: #05070b;
@@ -41,7 +199,6 @@
       flex-direction: column;
     }
 
-    /* Futuristic grid background */
     body::before {
       content: "";
       position: fixed;
@@ -80,7 +237,6 @@
       padding: 96px 20px 40px;
     }
 
-    /* Top nav */
     header {
       position: fixed;
       top: 0;
@@ -166,25 +322,13 @@
       position: relative;
       overflow: hidden;
       transition: color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
-    }
-
-    .nav-link::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 0 0, rgba(59,130,246,0.35), transparent 55%);
-      opacity: 0;
-      transition: opacity var(--transition-fast);
+      cursor: pointer;
     }
 
     .nav-link:hover {
       color: var(--text);
       background: rgba(15,23,42,0.9);
       transform: translateY(-1px);
-    }
-
-    .nav-link:hover::before {
-      opacity: 1;
     }
 
     .nav-link.active {
@@ -222,62 +366,22 @@
       box-shadow: 0 16px 40px rgba(37,99,235,0.9);
     }
 
-    .nav-cta:active {
-      transform: translateY(0);
-      box-shadow: 0 8px 20px rgba(37,99,235,0.7);
-    }
-
-    /* Layout grid */
-    .grid {
-      display: grid;
-      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
-      gap: 22px;
-      margin-bottom: 22px;
-    }
-
-    @media (max-width: 900px) {
-      .grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      header {
-        height: auto;
-      }
-      .nav-inner {
-        flex-direction: column;
-        gap: 10px;
-        padding-bottom: 10px;
-      }
-      main {
-        padding-top: 120px;
-      }
-    }
-
-    /* Cards */
     .card {
       background: var(--glass);
       border-radius: var(--radius-lg);
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
-      padding: 18px 18px 16px;
+      padding: 20px 20px 18px;
       position: relative;
       overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: -1px;
-      border-radius: inherit;
-      border: 1px solid rgba(59,130,246,0.18);
-      opacity: 0.4;
-      pointer-events: none;
+      margin-bottom: 22px;
     }
 
     .card-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .card-title {
@@ -329,40 +433,39 @@
       box-shadow: 0 0 0 1px rgba(239,68,68,0.7), 0 0 12px rgba(239,68,68,0.9);
     }
 
-    /* Hero / Home */
-    .hero {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .hero-row {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
     .hero-title {
       font-size: 26px;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
+      margin-bottom: 8px;
     }
 
     .hero-title span.accent {
       color: var(--accent);
     }
 
-    .hero-meta {
+    .hero-body {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .hero-meta-row {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: flex-end;
-      gap: 6px;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .hero-meta {
       font-size: 11px;
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.16em;
+      text-align: right;
     }
 
     .hero-meta strong {
@@ -374,7 +477,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 4px;
+      margin-bottom: 6px;
     }
 
     .hero-badge {
@@ -397,40 +500,6 @@
       border-radius: 999px;
       background: var(--accent);
       box-shadow: 0 0 0 1px rgba(59,130,246,0.7), 0 0 12px rgba(59,130,246,0.9);
-    }
-
-    .hero-body {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    .hero-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 10px;
-      gap: 10px;
-    }
-
-    .hero-footer-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 11px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-    }
-
-    .hero-footer-left span.key {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .hero-footer-right {
-      display: flex;
-      gap: 8px;
     }
 
     .btn-ghost {
@@ -460,7 +529,6 @@
       transform: translateY(-1px);
     }
 
-    /* Updates / Changelog */
     .updates-list {
       display: flex;
       flex-direction: column;
@@ -469,29 +537,10 @@
     }
 
     .update-item {
-      display: grid;
-      grid-template-columns: 90px minmax(0, 1fr);
-      gap: 10px;
-      align-items: baseline;
       padding: 8px 10px;
       border-radius: var(--radius-md);
       background: rgba(15,23,42,0.9);
       border: 1px solid rgba(31,41,55,0.9);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .update-item::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(59,130,246,0.18), transparent 55%);
-      opacity: 0;
-      transition: opacity var(--transition-fast);
-    }
-
-    .update-item:hover::before {
-      opacity: 1;
     }
 
     .update-date {
@@ -499,24 +548,25 @@
       text-transform: uppercase;
       letter-spacing: 0.16em;
       color: var(--muted);
-    }
-
-    .update-main {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+      margin-bottom: 4px;
     }
 
     .update-title {
       font-size: 12px;
       font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .update-body {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
     }
 
     .update-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: 2px;
     }
 
     .tag {
@@ -535,10 +585,9 @@
       color: var(--accent);
     }
 
-    /* Wall of Shame */
     .shame-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 12px;
     }
 
@@ -548,17 +597,6 @@
       border: 1px solid rgba(127,29,29,0.9);
       box-shadow: 0 0 0 1px rgba(127,29,29,0.7), 0 12px 30px rgba(127,29,29,0.6);
       padding: 10px 10px 9px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .shame-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 0 0, rgba(239,68,68,0.35), transparent 55%);
-      opacity: 0.7;
-      pointer-events: none;
     }
 
     .shame-header {
@@ -618,7 +656,6 @@
       background: rgba(127,29,29,0.9);
     }
 
-    /* Rules */
     .rules-list {
       display: flex;
       flex-direction: column;
@@ -632,7 +669,7 @@
       background: rgba(15,23,42,0.9);
       border: 1px solid rgba(31,41,55,0.9);
       display: grid;
-      grid-template-columns: 40px minmax(0, 1fr);
+      grid-template-columns: 60px minmax(0, 1fr);
       gap: 10px;
       align-items: baseline;
     }
@@ -644,20 +681,16 @@
       color: var(--muted);
     }
 
-    .rule-main {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
     .rule-title {
       font-size: 12px;
       font-weight: 600;
+      margin-bottom: 4px;
     }
 
     .rule-body {
       font-size: 12px;
       color: var(--muted);
+      margin-bottom: 4px;
     }
 
     .rule-tagline {
@@ -667,31 +700,31 @@
       color: var(--accent);
     }
 
-    /* Command / Chain of command */
-    .command-grid {
+    .command-grid,
+    .departments-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 12px;
     }
 
-    .command-card {
+    .command-card,
+    .dept-card {
       background: rgba(15,23,42,0.95);
       border-radius: var(--radius-md);
-      border: 1px solid rgba(37,99,235,0.9);
-      box-shadow: 0 0 0 1px rgba(37,99,235,0.7), 0 12px 30px rgba(37,99,235,0.6);
+      border: 1px solid rgba(31,41,55,0.9);
       padding: 10px 10px 9px;
-      position: relative;
-      overflow: hidden;
     }
 
-    .command-header {
+    .command-header,
+    .dept-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 6px;
     }
 
-    .command-rank {
+    .command-rank,
+    .dept-name {
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.12em;
@@ -703,7 +736,8 @@
       color: var(--muted);
     }
 
-    .command-body {
+    .command-body,
+    .dept-body {
       font-size: 11px;
       color: var(--muted);
       display: flex;
@@ -718,7 +752,8 @@
       color: rgba(191,219,254,0.9);
     }
 
-    .command-tag {
+    .command-tag,
+    .dept-tag {
       padding: 2px 8px;
       border-radius: 999px;
       border: 1px solid rgba(59,130,246,0.9);
@@ -727,36 +762,24 @@
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.16em;
+      margin-top: 6px;
+      display: inline-block;
     }
 
-    /* Departments */
-    .departments-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
+    .dept-tag {
+      border-color: rgba(148,163,184,0.9);
+      color: var(--muted);
     }
 
-    .dept-card {
-      background: rgba(15,23,42,0.95);
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(31,41,55,0.9);
-      padding: 10px 10px 9px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .dept-header {
+    .dept-meta {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      margin-bottom: 6px;
-    }
-
-    .dept-name {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
+      align-items: center;
+      margin-top: 6px;
+      font-size: 10px;
       text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
     }
 
     .dept-status {
@@ -782,36 +805,6 @@
       box-shadow: 0 0 0 1px rgba(239,68,68,0.7), 0 0 12px rgba(239,68,68,0.9);
     }
 
-    .dept-body {
-      font-size: 11px;
-      color: var(--muted);
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .dept-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 6px;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--muted);
-    }
-
-    .dept-tag {
-      padding: 2px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.9);
-      background: rgba(15,23,42,0.95);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-    }
-
-    /* Footer */
     footer {
       max-width: 1200px;
       width: 100%;
@@ -845,14 +838,27 @@
       background: rgba(15,23,42,0.95);
     }
 
-    /* Simple section visibility (no routing, just scroll) */
-    section {
-      margin-bottom: 22px;
+    /* Page sections (views) */
+    .view {
+      display: none;
     }
 
-    .section-anchor {
-      position: relative;
-      top: -80px;
+    .view.active {
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      header {
+        height: auto;
+      }
+      .nav-inner {
+        flex-direction: column;
+        gap: 10px;
+        padding-bottom: 10px;
+      }
+      main {
+        padding-top: 120px;
+      }
     }
   </style>
 </head>
@@ -865,16 +871,16 @@
         </div>
         <div class="brand-text">
           <div class="brand-title">PD HUB</div>
-          <div class="brand-sub">Central operations dashboard</div>
+          <div class="brand-sub" id="hub-tagline">Central operations dashboard</div>
         </div>
       </div>
       <nav class="nav-links">
-        <a href="#home" class="nav-link active">Home</a>
-        <a href="#updates" class="nav-link">Updates</a>
-        <a href="#shame" class="nav-link">Wall of Shame</a>
-        <a href="#rules" class="nav-link">Rules</a>
-        <a href="#command" class="nav-link">Command</a>
-        <a href="#departments" class="nav-link">Departments</a>
+        <div class="nav-link active" data-view="home">Home</div>
+        <div class="nav-link" data-view="updates">Updates</div>
+        <div class="nav-link" data-view="shame">Wall of Shame</div>
+        <div class="nav-link" data-view="rules">Rules</div>
+        <div class="nav-link" data-view="command">Command</div>
+        <div class="nav-link" data-view="departments">Departments</div>
       </nav>
       <button class="nav-cta">
         <span class="icon">⚡</span>
@@ -884,151 +890,145 @@
   </header>
 
   <main>
-    <!-- HOME -->
-    <span id="home" class="section-anchor"></span>
-    <section>
-      <div class="grid">
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">
-                <span class="icon">🛡️</span>
-                PD Hub — Operations
-              </div>
-              <div class="card-subtitle">Live overview • ERLC / RP Department</div>
+    <!-- HOME VIEW -->
+    <section id="view-home" class="view active">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              <span class="icon">🛡️</span>
+              PD Hub — Overview
             </div>
-            <div class="pill">
-              <span class="pill-dot"></span>
-              Live systems
-            </div>
+            <div class="card-subtitle" id="home-subtitle">Live overview • ERLC / RP Department</div>
           </div>
+          <div class="pill">
+            <span class="pill-dot"></span>
+            Live systems
+          </div>
+        </div>
 
-          <div class="hero">
-            <div class="hero-row">
-              <div>
-                <div class="hero-title">
-                  Central <span class="accent">Police Department</span> Hub
-                </div>
-                <div class="hero-badges">
-                  <div class="hero-badge">
-                    <span class="dot"></span>
-                    Dispatch linked
-                  </div>
-                  <div class="hero-badge">
-                    <span class="dot"></span>
-                    Application pipeline
-                  </div>
-                  <div class="hero-badge">
-                    <span class="dot"></span>
-                    Live department status
-                  </div>
-                </div>
+        <div class="hero-title">
+          Central <span class="accent">Police Department</span> Hub
+        </div>
+
+        <div class="hero-meta-row">
+          <div>
+            <div class="hero-badges">
+              <div class="hero-badge">
+                <span class="dot"></span>
+                Dispatch linked
               </div>
-              <div class="hero-meta">
-                <div>Server: <strong>Liberty County RP</strong></div>
-                <div>Last sync: <strong>Auto</strong></div>
+              <div class="hero-badge">
+                <span class="dot"></span>
+                Application pipeline
+              </div>
+              <div class="hero-badge">
+                <span class="dot"></span>
+                Live department status
               </div>
             </div>
-
             <div class="hero-body">
-              This hub is the single source of truth for your PD ecosystem—applications, department
-              status, command structure, rules, and disciplinary records. Everything is designed to be
-              readable, fast, and future‑proof, with a dark, tactical UI that feels like a real
-              operations console.
+              This homepage gives you a quick snapshot of everything: latest updates, rules, command,
+              departments, and disciplinary status. Click into each section for full details.
             </div>
-
-            <div class="hero-footer">
-              <div class="hero-footer-left">
-                <span class="key">Quick paths:</span>
-                <span>Updates</span> • <span>Rules</span> • <span>Wall of Shame</span>
-              </div>
-              <div class="hero-footer-right">
-                <button class="btn-ghost">
-                  <span class="icon">📄</span>
-                  Application status
-                </button>
-                <button class="btn-ghost">
-                  <span class="icon">📊</span>
-                  Department overview
-                </button>
-              </div>
-            </div>
+          </div>
+          <div class="hero-meta" id="home-meta">
+            <div>Server: <strong>Liberty County RP</strong></div>
+            <div>Hub version: <strong>2.1</strong></div>
           </div>
         </div>
 
-        <!-- Updates / Changelog -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">
-                <span class="icon">📡</span>
-                Live updates
-              </div>
-              <div class="card-subtitle">Changelog • System changes</div>
+        <div style="display:flex; flex-wrap:wrap; gap:16px; margin-top:8px;">
+          <button class="btn-ghost" data-view-jump="updates">
+            <span class="icon">📡</span>
+            Updates
+          </button>
+          <button class="btn-ghost" data-view-jump="rules">
+            <span class="icon">📜</span>
+            Rules
+          </button>
+          <button class="btn-ghost" data-view-jump="command">
+            <span class="icon">🎖️</span>
+            Command
+          </button>
+          <button class="btn-ghost" data-view-jump="departments">
+            <span class="icon">📂</span>
+            Departments
+          </button>
+          <button class="btn-ghost" data-view-jump="shame">
+            <span class="icon">🚨</span>
+            Wall of Shame
+          </button>
+        </div>
+      </div>
+
+      <!-- Small preview of updates on homepage -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              <span class="icon">📡</span>
+              Latest updates
             </div>
-            <div class="pill">
-              <span class="pill-dot"></span>
-              Auto‑logged
-            </div>
+            <div class="card-subtitle">Top 3 recent changes</div>
           </div>
-
-          <div class="updates-list">
-            <div class="update-item">
-              <div class="update-date">2026‑09‑15</div>
-              <div class="update-main">
-                <div class="update-title">PD Hub v2 — Futuristic UI rollout</div>
-                <div class="hero-body">
-                  New single‑file layout, dark tactical theme, and structured cards for command,
-                  rules, and disciplinary records.
-                </div>
-                <div class="update-tags">
-                  <span class="tag accent">UI</span>
-                  <span class="tag">Hub core</span>
-                  <span class="tag">GitHub‑ready</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="update-item">
-              <div class="update-date">2026‑09‑14</div>
-              <div class="update-main">
-                <div class="update-title">Wall of Shame — structured entries</div>
-                <div class="hero-body">
-                  Added standardized fields for username, ID, reason, and action taken. Designed for
-                  quick scanning by command.
-                </div>
-                <div class="update-tags">
-                  <span class="tag accent">Discipline</span>
-                  <span class="tag">Policy</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="update-item">
-              <div class="update-date">2026‑09‑13</div>
-              <div class="update-main">
-                <div class="update-title">Department status indicators</div>
-                <div class="hero-body">
-                  Each department now shows online/offline status, recruitment state, and contact
-                  path for command.
-                </div>
-                <div class="update-tags">
-                  <span class="tag accent">Departments</span>
-                  <span class="tag">Status</span>
-                </div>
-              </div>
-            </div>
+          <div class="pill">
+            <span class="pill-dot"></span>
+            Auto-logged
           </div>
         </div>
+        <div class="updates-list" id="home-updates"></div>
+      </div>
+
+      <!-- Small preview of rules on homepage -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              <span class="icon">📜</span>
+              Rules snapshot
+            </div>
+            <div class="card-subtitle">Key PD rules</div>
+          </div>
+          <div class="pill">
+            <span class="pill-dot"></span>
+            Policy live
+          </div>
+        </div>
+        <div class="hero-body">
+          These are the global PD rules. Departments can have their own rules, but they must still
+          follow these core policies. Click into the Rules page for the full list.
+        </div>
+        <div class="rules-list" id="home-rules"></div>
       </div>
     </section>
 
-    <!-- UPDATES SECTION (anchor only, content already above) -->
-    <span id="updates" class="section-anchor"></span>
+    <!-- UPDATES VIEW -->
+    <section id="view-updates" class="view">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              <span class="icon">📡</span>
+              Full changelog
+            </div>
+            <div class="card-subtitle">All updates • System changes</div>
+          </div>
+          <div class="pill">
+            <span class="pill-dot"></span>
+            Auto-logged
+          </div>
+        </div>
+        <div class="hero-body">
+          This page shows every logged update to the PD Hub—UI changes, policy updates, department
+          tweaks, and more.
+        </div>
+        <div class="updates-list" id="updates-list"></div>
+      </div>
+    </section>
 
-    <!-- WALL OF SHAME -->
-    <span id="shame" class="section-anchor"></span>
-    <section>
+    <!-- WALL OF SHAME VIEW -->
+    <section id="view-shame" class="view">
       <div class="card">
         <div class="card-header">
           <div>
@@ -1043,70 +1043,19 @@
             Zero tolerance
           </div>
         </div>
-
-        <div class="hero-body" style="margin-bottom: 10px;">
-          This section records serious violations and permanent bans. Use it to keep command aligned
-          on who is out, why, and when action was taken. Entries are intentionally short and sharp.
+        <div class="hero-body">
+          This section records serious violations and permanent bans. If the list is empty, it means
+          no one is currently on the Wall of Shame—which is exactly how it should be.
         </div>
-
-        <div class="shame-grid">
-          <div class="shame-card">
-            <div class="shame-header">
-              <div class="shame-name">UserExample#0001</div>
-              <div class="shame-id">ROBLOX: 123456789</div>
-            </div>
-            <div class="shame-body">
-              <div class="shame-label">Reason</div>
-              <div class="shame-reason">Mass RDM, failure to follow any PD protocol, repeated warnings ignored.</div>
-              <div class="shame-label">Action</div>
-              <div>Permanent PD ban • Server ban recommended.</div>
-            </div>
-            <div class="shame-meta">
-              <div>Logged: 2026‑09‑15 • By: Chief</div>
-              <div class="shame-tag">PERMA BAN</div>
-            </div>
-          </div>
-
-          <div class="shame-card">
-            <div class="shame-header">
-              <div class="shame-name">ToxicCop#4420</div>
-              <div class="shame-id">ROBLOX: 987654321</div>
-            </div>
-            <div class="shame-body">
-              <div class="shame-label">Reason</div>
-              <div class="shame-reason">Harassment of other officers, abuse of rank, ignoring chain of command.</div>
-              <div class="shame-label">Action</div>
-              <div>Removed from PD • Appeal only via command review.</div>
-            </div>
-            <div class="shame-meta">
-              <div>Logged: 2026‑09‑14 • By: Deputy Chief</div>
-              <div class="shame-tag">REMOVED</div>
-            </div>
-          </div>
-
-          <div class="shame-card">
-            <div class="shame-header">
-              <div class="shame-name">AltAccount#9999</div>
-              <div class="shame-id">ROBLOX: 555555555</div>
-            </div>
-            <div class="shame-body">
-              <div class="shame-label">Reason</div>
-              <div class="shame-reason">Ban evasion via alt, lying in applications, falsifying identity.</div>
-              <div class="shame-label">Action</div>
-              <div>All linked accounts blacklisted from PD.</div>
-            </div>
-            <div class="shame-meta">
-              <div>Logged: 2026‑09‑13 • By: IA</div>
-              <div class="shame-tag">BLACKLIST</div>
-            </div>
-          </div>
+        <div id="shame-empty" class="hero-body" style="color:#9ca3af;">
+          No entries currently logged. Good job—keep it that way.
         </div>
+        <div class="shame-grid" id="shame-grid"></div>
       </div>
     </section>
 
-    <!-- RULES -->
-    <span id="rules" class="section-anchor"></span>
-    <section>
+    <!-- RULES VIEW -->
+    <section id="view-rules" class="view">
       <div class="card">
         <div class="card-header">
           <div>
@@ -1114,75 +1063,25 @@
               <span class="icon">📜</span>
               PD Rules & Expectations
             </div>
-            <div class="card-subtitle">Core policy • Must‑read</div>
+            <div class="card-subtitle">Core policy • Must-read</div>
           </div>
           <div class="pill">
             <span class="pill-dot"></span>
             Policy live
           </div>
         </div>
-
-        <div class="hero-body" style="margin-bottom: 10px;">
-          These are the non‑negotiable rules for PD members. You can expand this list, but the
-          structure keeps everything readable and easy to reference during training or disciplinary
-          reviews.
+        <div class="hero-body">
+          These are the global PD rules that apply to everyone. If you create a department, you must
+          follow these rules. You can add department-specific rules, but they cannot break or ignore
+          the global PD rules. Max department ownership is one unless command gives special
+          permission.
         </div>
-
-        <div class="rules-list">
-          <div class="rule-item">
-            <div class="rule-index">Rule 01</div>
-            <div class="rule-main">
-              <div class="rule-title">Follow chain of command</div>
-              <div class="rule-body">
-                All PD members must respect rank and follow the chain of command. Disputes or
-                concerns go up the chain, not into public chat or in‑game arguments.
-              </div>
-              <div class="rule-tagline">Command first • No public drama</div>
-            </div>
-          </div>
-
-          <div class="rule-item">
-            <div class="rule-index">Rule 02</div>
-            <div class="rule-main">
-              <div class="rule-title">Professional conduct on and off duty</div>
-              <div class="rule-body">
-                You represent the department whenever you wear the uniform or use PD tags. No
-                harassment, toxicity, or trolling—inside or outside the server.
-              </div>
-              <div class="rule-tagline">Respect the badge</div>
-            </div>
-          </div>
-
-          <div class="rule-item">
-            <div class="rule-index">Rule 03</div>
-            <div class="rule-main">
-              <div class="rule-title">No abuse of powers</div>
-              <div class="rule-body">
-                Using PD powers (tools, vehicles, permissions) for personal gain, trolling, or
-                favoritism is an instant removal and may be logged on the Wall of Shame.
-              </div>
-              <div class="rule-tagline">Zero tolerance • Abuse = out</div>
-            </div>
-          </div>
-
-          <div class="rule-item">
-            <div class="rule-index">Rule 04</div>
-            <div class="rule-main">
-              <div class="rule-title">Follow server rules and PD SOP</div>
-              <div class="rule-body">
-                PD rules do not replace server rules—they stack. You must follow both the server
-                rules and PD standard operating procedures at all times.
-              </div>
-              <div class="rule-tagline">Server + PD rules together</div>
-            </div>
-          </div>
-        </div>
+        <div class="rules-list" id="rules-list"></div>
       </div>
     </section>
 
-    <!-- COMMAND -->
-    <span id="command" class="section-anchor"></span>
-    <section>
+    <!-- COMMAND VIEW -->
+    <section id="view-command" class="view">
       <div class="card">
         <div class="card-header">
           <div>
@@ -1197,67 +1096,17 @@
             Structured ranks
           </div>
         </div>
-
-        <div class="hero-body" style="margin-bottom: 10px;">
-          This is the top‑level command overview. You can plug in real names, Discord tags, and
-          contact links. The idea is that any officer can see exactly who to go to for what.
+        <div class="hero-body">
+          This is the top-level command overview. Plug in real names, Discord tags, and contact
+          links in the config at the top of the file. Any officer can see exactly who to go to for
+          what.
         </div>
-
-        <div class="command-grid">
-          <div class="command-card">
-            <div class="command-header">
-              <div class="command-rank">Chief of Police</div>
-              <div class="command-name">@ChiefTag</div>
-            </div>
-            <div class="command-body">
-              <div class="command-label">Responsibilities</div>
-              <div>Overall PD leadership, final say on bans, promotions, and major policy changes.</div>
-              <div class="command-label">Contact</div>
-              <div>Discord DM • Ticket: "PD — Chief Review"</div>
-            </div>
-            <div style="margin-top: 6px;">
-              <span class="command-tag">Final authority</span>
-            </div>
-          </div>
-
-          <div class="command-card">
-            <div class="command-header">
-              <div class="command-rank">Deputy Chief</div>
-              <div class="command-name">@DeputyTag</div>
-            </div>
-            <div class="command-body">
-              <div class="command-label">Responsibilities</div>
-              <div>Day‑to‑day operations, training oversight, and handling escalated issues from Captains.</div>
-              <div class="command-label">Contact</div>
-              <div>Ticket: "PD — Operations" • In‑game whisper.</div>
-            </div>
-            <div style="margin-top: 6px;">
-              <span class="command-tag">Operations lead</span>
-            </div>
-          </div>
-
-          <div class="command-card">
-            <div class="command-header">
-              <div class="command-rank">Internal Affairs</div>
-              <div class="command-name">@IATag</div>
-            </div>
-            <div class="command-body">
-              <div class="command-label">Responsibilities</div>
-              <div>Investigations, complaints, and Wall of Shame entries. Handles officer‑vs‑officer issues.</div>
-              <div class="command-label">Contact</div>
-              <div>Ticket: "PD — IA Complaint" • Anonymous form.</div>
-            </div>
-            <div style="margin-top: 6px;">
-              <span class="command-tag">Investigations</span>
-            </div>
-          </div>
-        </div>
+        <div class="command-grid" id="command-grid"></div>
       </div>
     </section>
 
-    <!-- DEPARTMENTS -->
-    <span id="departments" class="section-anchor"></span>
-    <section>
+    <!-- DEPARTMENTS VIEW -->
+    <section id="view-departments" class="view">
       <div class="card">
         <div class="card-header">
           <div>
@@ -1272,106 +1121,189 @@
             Live roster
           </div>
         </div>
-
-        <div class="hero-body" style="margin-bottom: 10px;">
+        <div class="hero-body">
           Each department card shows whether it’s active, recruiting, and who owns it. You can wire
-          this up later to your bot or forms, but the layout is ready.
+          this up later to your bot or forms, but the layout is ready and all data is editable in the
+          config at the top of the file.
         </div>
-
-        <div class="departments-grid">
-          <div class="dept-card">
-            <div class="dept-header">
-              <div class="dept-name">Patrol Division</div>
-              <div class="dept-status">
-                <span class="dept-status-dot"></span>
-                Active • Recruiting
-              </div>
-            </div>
-            <div class="dept-body">
-              <div>Primary street patrol, traffic stops, and first response to calls.</div>
-              <div>Lead: @PatrolCaptain • Ticket: "PD — Patrol Application".</div>
-            </div>
-            <div class="dept-meta">
-              <div>Slots: 24 / 32</div>
-              <div class="dept-tag">Core division</div>
-            </div>
-          </div>
-
-          <div class="dept-card">
-            <div class="dept-header">
-              <div class="dept-name">Traffic Enforcement</div>
-              <div class="dept-status">
-                <span class="dept-status-dot"></span>
-                Active • Limited slots
-              </div>
-            </div>
-            <div class="dept-body">
-              <div>Focused on speed enforcement, collisions, and roadway safety operations.</div>
-              <div>Lead: @TrafficLead • Ticket: "PD — Traffic Application".</div>
-            </div>
-            <div class="dept-meta">
-              <div>Slots: 10 / 12</div>
-              <div class="dept-tag">Specialized</div>
-            </div>
-          </div>
-
-          <div class="dept-card">
-            <div class="dept-header">
-              <div class="dept-name">SWAT / Tactical</div>
-              <div class="dept-status">
-                <span class="dept-status-dot offline"></span>
-                Active • Not recruiting
-              </div>
-            </div>
-            <div class="dept-body">
-              <div>High‑risk operations, raids, and hostage situations. Invite‑only, strict standards.</div>
-              <div>Lead: @SWATCommander • Ticket: "PD — SWAT Inquiry" only.</div>
-            </div>
-            <div class="dept-meta">
-              <div>Slots: 6 / 8</div>
-              <div class="dept-tag">High risk</div>
-            </div>
-          </div>
-
-          <div class="dept-card">
-            <div class="dept-header">
-              <div class="dept-name">Training Division</div>
-              <div class="dept-status">
-                <span class="dept-status-dot"></span>
-                Active • Recruiting trainers
-              </div>
-            </div>
-            <div class="dept-body">
-              <div>Handles academy, ride‑alongs, and refreshers for existing officers.</div>
-              <div>Lead: @TrainingLead • Ticket: "PD — Trainer Application".</div>
-            </div>
-            <div class="dept-meta">
-              <div>Slots: 5 / 10</div>
-              <div class="dept-tag">Support</div>
-            </div>
-          </div>
-        </div>
+        <div class="departments-grid" id="departments-grid"></div>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="footer-left">
-      PD Hub • Single‑file • GitHub‑ready
+      PD Hub • Single-file • GitHub-ready
     </div>
     <div class="footer-right">
       <div class="footer-pill">Theme: Dark • Futuristic</div>
-      <div class="footer-pill">Version: 2.0</div>
+      <div class="footer-pill" id="footer-version">Version: 2.1</div>
     </div>
   </footer>
 
+  <!-- =========================
+       SCRIPT (WIRES CONFIG TO UI)
+       ========================= -->
   <script>
-    // Simple nav active state on click (no routing, just visual)
-    document.querySelectorAll(".nav-link").forEach(link => {
-      link.addEventListener("click", () => {
-        document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
-        link.classList.add("active");
+    // Apply basic config
+    document.getElementById("hub-tagline").textContent = PD_CONFIG.hubTagline;
+    document.getElementById("home-subtitle").textContent =
+      "Live overview • " + PD_CONFIG.serverName;
+    document.getElementById("home-meta").innerHTML =
+      '<div>Server: <strong>' + PD_CONFIG.serverName + '</strong></div>' +
+      '<div>Hub version: <strong>' + PD_CONFIG.hubVersion + '</strong></div>';
+    document.getElementById("footer-version").textContent =
+      "Version: " + PD_CONFIG.hubVersion;
+
+    // Navigation (switch views)
+    const navLinks = document.querySelectorAll(".nav-link");
+    const views = document.querySelectorAll(".view");
+
+    function showView(viewName) {
+      views.forEach(v => {
+        v.classList.toggle("active", v.id === "view-" + viewName);
       });
+      navLinks.forEach(l => {
+        l.classList.toggle("active", l.dataset.view === viewName);
+      });
+    }
+
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        showView(link.dataset.view);
+      });
+    });
+
+    document.querySelectorAll("[data-view-jump]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        showView(btn.dataset.viewJump);
+      });
+    });
+
+    // Render updates (homepage: latest 3)
+    const homeUpdatesEl = document.getElementById("home-updates");
+    const updatesListEl = document.getElementById("updates-list");
+
+    function renderUpdateItem(update) {
+      const div = document.createElement("div");
+      div.className = "update-item";
+      div.innerHTML =
+        '<div class="update-date">' + update.date + '</div>' +
+        '<div class="update-title">' + update.title + '</div>' +
+        '<div class="update-body">' + update.body + '</div>' +
+        '<div class="update-tags">' +
+        update.tags
+          .map(tag => '<span class="tag' + (tag === "UI" ? " accent" : "") + '">' + tag + "</span>")
+          .join("") +
+        "</div>";
+      return div;
+    }
+
+    PD_CONFIG.updates.slice(0, 3).forEach(u => {
+      homeUpdatesEl.appendChild(renderUpdateItem(u));
+    });
+
+    PD_CONFIG.updates.forEach(u => {
+      updatesListEl.appendChild(renderUpdateItem(u));
+    });
+
+    // Render rules (homepage: first 3, rules page: all)
+    const homeRulesEl = document.getElementById("home-rules");
+    const rulesListEl = document.getElementById("rules-list");
+
+    function renderRuleItem(rule) {
+      const div = document.createElement("div");
+      div.className = "rule-item";
+      div.innerHTML =
+        '<div class="rule-index">Rule ' + rule.index + "</div>" +
+        '<div>' +
+        '<div class="rule-title">' + rule.title + "</div>" +
+        '<div class="rule-body">' + rule.body + "</div>" +
+        '<div class="rule-tagline">' + rule.tagline + "</div>" +
+        "</div>";
+      return div;
+    }
+
+    PD_CONFIG.rules.slice(0, 3).forEach(r => {
+      homeRulesEl.appendChild(renderRuleItem(r));
+    });
+
+    PD_CONFIG.rules.forEach(r => {
+      rulesListEl.appendChild(renderRuleItem(r));
+    });
+
+    // Render Wall of Shame
+    const shameGridEl = document.getElementById("shame-grid");
+    const shameEmptyEl = document.getElementById("shame-empty");
+
+    if (PD_CONFIG.wallOfShame.length === 0) {
+      shameGridEl.style.display = "none";
+    } else {
+      shameEmptyEl.style.display = "none";
+      PD_CONFIG.wallOfShame.forEach(entry => {
+        const div = document.createElement("div");
+        div.className = "shame-card";
+        div.innerHTML =
+          '<div class="shame-header">' +
+          '<div class="shame-name">' + entry.name + "</div>" +
+          '<div class="shame-id">ROBLOX: ' + entry.robloxId + "</div>" +
+          "</div>" +
+          '<div class="shame-body">' +
+          '<div class="shame-label">Reason</div>' +
+          '<div class="shame-reason">' + entry.reason + "</div>" +
+          '<div class="shame-label">Action</div>' +
+          "<div>" + entry.action + "</div>" +
+          "</div>" +
+          '<div class="shame-meta">' +
+          "<div>Logged: " + entry.loggedDate + " • By: " + entry.loggedBy + "</div>" +
+          '<div class="shame-tag">' + entry.tag + "</div>" +
+          "</div>";
+        shameGridEl.appendChild(div);
+      });
+    }
+
+    // Render command
+    const commandGridEl = document.getElementById("command-grid");
+    PD_CONFIG.command.forEach(c => {
+      const div = document.createElement("div");
+      div.className = "command-card";
+      div.innerHTML =
+        '<div class="command-header">' +
+        '<div class="command-rank">' + c.rank + "</div>" +
+        '<div class="command-name">' + c.name + "</div>" +
+        "</div>" +
+        '<div class="command-body">' +
+        '<div class="command-label">Responsibilities</div>' +
+        "<div>" + c.responsibilities + "</div>" +
+        '<div class="command-label">Contact</div>' +
+        "<div>" + c.contact + "</div>" +
+        "</div>" +
+        '<span class="command-tag">' + c.tag + "</span>";
+      commandGridEl.appendChild(div);
+    });
+
+    // Render departments
+    const departmentsGridEl = document.getElementById("departments-grid");
+    PD_CONFIG.departments.forEach(d => {
+      const div = document.createElement("div");
+      div.className = "dept-card";
+      div.innerHTML =
+        '<div class="dept-header">' +
+        '<div class="dept-name">' + d.name + "</div>" +
+        '<div class="dept-status">' +
+        '<span class="dept-status-dot' + (d.statusOnline ? "" : " offline") + '"></span>' +
+        d.status +
+        "</div>" +
+        "</div>" +
+        '<div class="dept-body">' +
+        "<div>" + d.description + "</div>" +
+        "<div>" + d.contact + "</div>" +
+        "</div>" +
+        '<div class="dept-meta">' +
+        "<div>Slots: " + d.slots + "</div>" +
+        '<div class="dept-tag">' + d.tag + "</div>" +
+        "</div>";
+      departmentsGridEl.appendChild(div);
     });
   </script>
 </body>
