@@ -97,23 +97,6 @@
     .deny-btn:hover {
         background: #cc0000;
     }
-
-    .calendar-day {
-        padding: 10px;
-        margin: 5px;
-        display: inline-block;
-        border-radius: 6px;
-        cursor: pointer;
-        border: 1px solid #1a4fff;
-    }
-
-    .available {
-        background: #1a4fff;
-    }
-
-    .unavailable {
-        background: #3b3b3b;
-    }
 </style>
 </head>
 
@@ -124,15 +107,8 @@
 </header>
 
 <div class="container">
-    <h2>Available Days</h2>
-    <p>Click a day to toggle between AVAILABLE and UNAVAILABLE.</p>
-
-    <div id="calendar"></div>
-
-    <hr style="margin:30px 0; border-color:#1a4fff;">
-
     <h2>Request Office Hours</h2>
-    <p>Pick a day that is marked AVAILABLE.</p>
+    <p>Choose a day and time from the available schedule.</p>
 
     <label>Name</label>
     <input id="name">
@@ -146,8 +122,8 @@
     <label>Select Day</label>
     <select id="day"></select>
 
-    <label>Preferred Time</label>
-    <input id="time">
+    <label>Select Preferred Time</label>
+    <select id="time"></select>
 
     <button onclick="submitRequest()">Submit Request</button>
 
@@ -156,45 +132,38 @@
 </div>
 
 <script>
-    const days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+    // HARD CODED DAYS — EDIT THESE
+    const availableDays = [
+        "Monday",
+        "Tuesday",
+        "Thursday",
+        "Friday"
+    ];
 
-    function loadCalendar() {
-        const calendar = document.getElementById("calendar");
-        calendar.innerHTML = "";
+    // HARD CODED TIMES — EDIT THESE
+    const availableTimes = [
+        "4:00 PM",
+        "5:00 PM",
+        "6:00 PM",
+        "7:00 PM"
+    ];
 
-        let status = JSON.parse(localStorage.getItem("dayStatus") || "{}");
+    function loadDropdowns() {
+        const daySelect = document.getElementById("day");
+        const timeSelect = document.getElementById("time");
 
-        days.forEach(day => {
-            if (!status[day]) status[day] = "available";
-
-            const div = document.createElement("div");
-            div.className = "calendar-day " + (status[day] === "available" ? "available" : "unavailable");
-            div.innerText = day;
-
-            div.onclick = () => {
-                status[day] = status[day] === "available" ? "unavailable" : "available";
-                localStorage.setItem("dayStatus", JSON.stringify(status));
-                loadCalendar();
-                loadDayDropdown();
-            };
-
-            calendar.appendChild(div);
+        availableDays.forEach(day => {
+            const opt = document.createElement("option");
+            opt.value = day;
+            opt.innerText = day;
+            daySelect.appendChild(opt);
         });
-    }
 
-    function loadDayDropdown() {
-        const dropdown = document.getElementById("day");
-        dropdown.innerHTML = "";
-
-        let status = JSON.parse(localStorage.getItem("dayStatus") || "{}");
-
-        days.forEach(day => {
-            if (status[day] === "available") {
-                const opt = document.createElement("option");
-                opt.value = day;
-                opt.innerText = day;
-                dropdown.appendChild(opt);
-            }
+        availableTimes.forEach(time => {
+            const opt = document.createElement("option");
+            opt.value = time;
+            opt.innerText = time;
+            timeSelect.appendChild(opt);
         });
     }
 
@@ -249,8 +218,7 @@
         loadRequests();
     }
 
-    loadCalendar();
-    loadDayDropdown();
+    loadDropdowns();
     loadRequests();
 </script>
 
